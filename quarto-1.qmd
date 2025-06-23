@@ -1,6 +1,33 @@
 ---
-title: "Untitled"
+title: "Quarto-1"
 format: html
 author: Luke Li
+execute:
+    echo: false
+    message: false
+    warning: false
 ---
 
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+library(palmerpenguins)
+```
+
+```{r}
+penguins %>%
+  drop_na(species, sex, body_mass_g) %>%
+  ggplot(aes(x = species, y = body_mass_g, fill = species)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA) +
+  geom_jitter(aes(color = sex), width = 0.2, alpha = 0.5, size = 2) +
+  scale_fill_brewer(palette = "Pastel1") +
+  scale_color_brewer(palette = "Dark2") +
+  labs(
+    title = "Body Mass of Penguin Species by Sex",
+    subtitle = "Gentoo penguins are generally heavier than Adelie and Chinstrap penguins",
+    x = "Penguin Species",
+    y = "Body Mass (g)",
+    fill = "Species",
+    color = "Sex",
+    caption = "Data: palmerpenguins"
+  )
+```
